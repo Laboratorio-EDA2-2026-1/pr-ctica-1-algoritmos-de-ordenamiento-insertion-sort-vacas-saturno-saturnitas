@@ -1,29 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
- * EJERCICIO:
- * Se quiere definir un programa que, dada una matriz cuadrada con valores enteros,
- * devuelva una permutación de los valores de modo que:
- *
- * 1. Cada renglón esté ordenado de menor a mayor.
- * 2. Todos los elementos del segundo renglón (de arriba hacia abajo)
- *    sean mayores que los del primero, los del tercero mayores que los del segundo, etc.
- *
- * Regla importante:
- * - Cuando se ordenan los elementos de un renglón, por cada elemento de dicho renglón,
- *   se mueven también todos los elementos que se encuentran por debajo en la misma columna.
- *
- * INSTRUCCIONES:
- * - Completa la función sort_matrix() que debe modificar la matriz en su lugar.
- * - Puedes escribir funciones auxiliares si lo deseas.
- * - NO cambies la firma de sort_matrix().
- */
+void swap_columns(int **matrix, int n, int col1, int col2) {
+    int i, temp; //Variables auxiliares
+    for (i = 0; i < n; i++) {
+        temp = matrix[i][col1];
+        matrix[i][col1] = matrix[i][col2];
+        matrix[i][col2] = temp;
+    }
+}
 
 void sort_matrix(int **matrix, int n) {
-    // TODO: Implementa aquí el algoritmo.
-    // Necesitarás el método de inserción,
-    // pero recuerda aplicar la regla de mover toda la columna.
+    // Usamos "insertion sort" por columnas
+    int fila, j, k;
+    for (fila = 0; fila < n; fila++) {
+        for (j = 1; j < n; j++) {
+            k = j;
+            while (k > 0 && matrix[fila][k] < matrix[fila][k-1]) {
+                swap_columns(matrix, n, k, k-1);
+                k--;
+            }
+        }
+    }
 }
 
 int main() {
