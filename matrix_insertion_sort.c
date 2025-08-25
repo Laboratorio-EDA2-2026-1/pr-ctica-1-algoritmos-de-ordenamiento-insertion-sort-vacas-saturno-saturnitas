@@ -24,6 +24,32 @@ void sort_matrix(int **matrix, int n) {
     // TODO: Implementa aquí el algoritmo.
     // Necesitarás el método de inserción,
     // pero recuerda aplicar la regla de mover toda la columna.
+    
+    int i, j, r, k, key;
+    // r -> índice del renglón actual que estamos ordenando
+    // i -> índice de la columna en el algoritmo de inserción
+    // j -> posición que retrocede en el insertion sort
+    // k -> índice auxiliar para recorrer filas hacia abajo al intercambiar columnas
+    // key -> variable auxiliar para hacer intercambios de elementos
+    
+    for (r = 0; r < n; r++) { // Recorremos cada renglón de la matriz
+        for (i = 1; i < n; i++) {
+            j = i;
+
+            /* Algoritmo de inserción:
+            Mientras el elemento de la izquierda sea mayor que el actual,
+            intercambiamos columnas completas. */
+            while (j > 0 && matrix[r][j-1] > matrix[r][j]) {
+                // Intercambio de columnas completas desde fila r hacia abajo
+                for (k = r; k < n; k++) {
+                    key = matrix[k][j];
+                    matrix[k][j] = matrix[k][j-1];
+                    matrix[k][j-1] = key;
+                }
+                j--; // Retrocedemos una posición para seguir comparando
+            }
+        }
+    }
 }
 
 int main() {
